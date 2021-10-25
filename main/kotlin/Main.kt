@@ -16,24 +16,19 @@ public class RockPaperScissors {
         println("We are going to play: Rock, Paper, Scissors!")
         println("Let's have a fun!!!")
         println()
-        val resultList:MutableList<String> = playGame(InputStreamReader(System.`in`))
+        val resultList:MutableList<GameResult> = playGame(InputStreamReader(System.`in`))
         println()
         println("This is the End of our Game my friend.")
-        for( i in resultList){
-            println(i)
-        }
         println()
+        for( i in GameResult.values()){
+            val number:Int=resultList.filter { result->result==i}.size;
+            println("Number of your ${i.name}:$number")
+        }
 
-        val win:Int=resultList.filter { i->i=="WIN"}.size;
-        val lose:Int=resultList.filter { i->i=="LOSE"}.size;
-        val draw:Int=resultList.filter { i->i=="DRAW"}.size;
-        println("Number of your 'WIN':$win")
-        println("Number of your 'LOSE':$lose")
-        println("Number of your 'DRAW':$draw")
     }
 
-    fun playGame(inputStreamReader: InputStreamReader): MutableList<String> {
-        val resultList: MutableList<String> = mutableListOf<String>()
+    fun playGame(inputStreamReader: InputStreamReader): MutableList<GameResult> {
+        val resultList: MutableList<GameResult> = mutableListOf<GameResult>()
         BufferedReader(inputStreamReader).use { br ->
            val intNumberOfRound = getNumberOfRound()
             println("Number of Rounds to play is $intNumberOfRound!")
@@ -44,7 +39,7 @@ public class RockPaperScissors {
                 println("")
                 println("You picked:  $userChoice")
                 println("Computer picked: $computerChoice")
-                val roundResult:String=evaluateResult(userChoice, computerChoice)
+                val roundResult:GameResult=evaluateResult(userChoice, computerChoice)
                 println("It's a $roundResult.")
                 println()
                 resultList.add(roundResult)
@@ -83,14 +78,14 @@ public class RockPaperScissors {
         return GameItem.values()[Random().nextInt(GameItem.values().size)]
     }
 
-    fun evaluateResult(userChoice: GameItem, computerChoice: GameItem) :String{
+    fun evaluateResult(userChoice: GameItem, computerChoice: GameItem) :GameResult{
         if (userChoice === computerChoice) {
-            return "DRAW"
+            return GameResult.DRAW
         }
         if (userChoice.isVictim(computerChoice)) {
-            return "WIN"
+            return GameResult.WIN
         } else {
-            return "LOSE"
+            return GameResult.LOSE
         }
     }
 
@@ -111,6 +106,12 @@ public class RockPaperScissors {
             throw RuntimeException("There was an error while reading from input.", e)
         }
 
+    }
+
+    enum class GameResult(val enumString:String){
+        WIN("win"),
+        LOSE("lose"),
+        DRAW("draw");
     }
 
 
