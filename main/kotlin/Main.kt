@@ -11,10 +11,7 @@ fun main(args: Array<String>) {
     println("Let's have a fun!!!")
     println()
     val rockPaperScissors = RockPaperScissors()
-    //rockPaperScissors.execute();
-    val intNumberOfRound=rockPaperScissors.getNumberOfRound()
-    println("Number of Rounds to play is $intNumberOfRound!")
-
+    rockPaperScissors.execute();
 }
 
 public class RockPaperScissors {
@@ -24,13 +21,17 @@ public class RockPaperScissors {
 
     fun playGame(inputStreamReader: InputStreamReader) {
         BufferedReader(inputStreamReader).use { br ->
-            printItems()
-            val userChoice: GameItem = getUserChoice(br)
-            val computerChoice: GameItem = getComputerChoice()
-            println("")
-            println("You picked:  $userChoice")
-            println("Computer picked: $computerChoice")
-            evaluateResult(userChoice, computerChoice)
+            val intNumberOfRound = getNumberOfRound()
+            println("Number of Rounds to play is $intNumberOfRound!")
+            for (round in 1..intNumberOfRound) {
+                printItems()
+                val userChoice: GameItem = getUserChoice(br)
+                val computerChoice: GameItem = getComputerChoice()
+                println("")
+                println("You picked:  $userChoice")
+                println("Computer picked: $computerChoice")
+                evaluateResult(userChoice, computerChoice)
+            }
         }
     }
 
@@ -77,6 +78,7 @@ public class RockPaperScissors {
     }
 
     fun getNumberOfRound():Int{
+        return 2
         try {
             while(true) {
                 println("How much Rounds would you like to play?(Please input Number from 1 to 10)")
