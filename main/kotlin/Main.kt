@@ -23,8 +23,10 @@ public class RockPaperScissors {
         BufferedReader(inputStreamReader).use { br ->
             printItems()
             val userChoice: GameItem = getUserChoice(br)
+            val computerChoice: GameItem = getComputerChoice()
             println("")
             println("You picked:  $userChoice")
+            println("Computer picked: $computerChoice")
         }
     }
 
@@ -53,6 +55,11 @@ public class RockPaperScissors {
             throw RuntimeException("There was an error while reading from input.", e)
         }
     }
+
+    fun getComputerChoice(): GameItem {
+        return GameItem.values()[Random().nextInt(GameItem.values().size)]
+    }
+
 
     enum class GameItem(val enumString: String) {
         ROCK("rock"),
