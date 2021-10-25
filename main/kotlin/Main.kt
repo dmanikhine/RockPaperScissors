@@ -11,7 +11,10 @@ fun main(args: Array<String>) {
     println("Let's have a fun!!!")
     println()
     val rockPaperScissors = RockPaperScissors()
-    rockPaperScissors.execute();
+    //rockPaperScissors.execute();
+    val intNumberOfRound=rockPaperScissors.getNumberOfRound()
+    println("Number of Rounds to play is $intNumberOfRound!")
+
 }
 
 public class RockPaperScissors {
@@ -71,6 +74,24 @@ public class RockPaperScissors {
         } else {
             println("It's a LOSE. :(")
         }
+    }
+
+    fun getNumberOfRound():Int{
+        try {
+            while(true) {
+                println("How much Rounds would you like to play?(Please input Number from 1 to 10)")
+                val stringNumberOfRound= readLine()
+                if (!Round100.values().any { i -> i.enumString == stringNumberOfRound }) {
+                    println("Please enter one of the valid options.")
+                } else {
+                    return Round100.values().first{ i->i.enumString==stringNumberOfRound }.ordinal+1
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            throw RuntimeException("There was an error while reading from input.", e)
+        }
+
     }
 
 
