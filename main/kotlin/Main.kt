@@ -7,21 +7,35 @@ import java.util.*
 
 
 fun main(args: Array<String>) {
-    println("We are going to play: Rock, Paper, Scissors!")
-    println("Let's have a fun!!!")
-    println()
     val rockPaperScissors = RockPaperScissors()
     rockPaperScissors.execute();
 }
 
 public class RockPaperScissors {
     fun execute() {
-        playGame(InputStreamReader(System.`in`))
+        println("We are going to play: Rock, Paper, Scissors!")
+        println("Let's have a fun!!!")
+        println()
+        val resultList:MutableList<String> = playGame(InputStreamReader(System.`in`))
+        println()
+        println("This is the End of our Game my friend.")
+        for( i in resultList){
+            println(i)
+        }
+        println()
+
+        val win:Int=resultList.filter { i->i=="WIN"}.size;
+        val lose:Int=resultList.filter { i->i=="LOSE"}.size;
+        val draw:Int=resultList.filter { i->i=="DRAW"}.size;
+        println("Number of your 'WIN':$win")
+        println("Number of your 'LOSE':$lose")
+        println("Number of your 'DRAW':$draw")
     }
 
-    fun playGame(inputStreamReader: InputStreamReader) {
+    fun playGame(inputStreamReader: InputStreamReader): MutableList<String> {
+        val resultList: MutableList<String> = mutableListOf<String>()
         BufferedReader(inputStreamReader).use { br ->
-            val intNumberOfRound = getNumberOfRound()
+           val intNumberOfRound = getNumberOfRound()
             println("Number of Rounds to play is $intNumberOfRound!")
             for (round in 1..intNumberOfRound) {
                 printItems()
@@ -30,9 +44,13 @@ public class RockPaperScissors {
                 println("")
                 println("You picked:  $userChoice")
                 println("Computer picked: $computerChoice")
-                evaluateResult(userChoice, computerChoice)
+                val roundResult:String=evaluateResult(userChoice, computerChoice)
+                println("It's a $roundResult.")
+                println()
+                resultList.add(roundResult)
             }
         }
+        return resultList
     }
 
     fun printItems() {
@@ -65,15 +83,14 @@ public class RockPaperScissors {
         return GameItem.values()[Random().nextInt(GameItem.values().size)]
     }
 
-    fun evaluateResult(userChoice: GameItem, computerChoice: GameItem) {
+    fun evaluateResult(userChoice: GameItem, computerChoice: GameItem) :String{
         if (userChoice === computerChoice) {
-            println("It's a DRAW.")
-            return
+            return "DRAW"
         }
         if (userChoice.isVictim(computerChoice)) {
-            println("It's a WIN!")
+            return "WIN"
         } else {
-            println("It's a LOSE. :(")
+            return "LOSE"
         }
     }
 
