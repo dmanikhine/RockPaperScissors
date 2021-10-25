@@ -9,7 +9,7 @@ import java.util.*
 fun main(args: Array<String>) {
     val rockPaperScissors = RockPaperScissors()
     rockPaperScissors.execute();
-}git 
+}
 
 public class RockPaperScissors {
     fun execute() {
@@ -82,7 +82,7 @@ public class RockPaperScissors {
     }
 
     fun evaluateResult(userChoice: GameItem, computerChoice: GameItem) :GameResult{
-        if (userChoice === computerChoice) {
+        if (userChoice == computerChoice) {
             return GameResult.DRAW
         }
         if (userChoice.isVictim(computerChoice)) {
