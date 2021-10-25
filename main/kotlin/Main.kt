@@ -9,7 +9,7 @@ import java.util.*
 fun main(args: Array<String>) {
     val rockPaperScissors = RockPaperScissors()
     rockPaperScissors.execute();
-}
+}git 
 
 public class RockPaperScissors {
     fun execute() {
@@ -32,11 +32,13 @@ public class RockPaperScissors {
         BufferedReader(inputStreamReader).use { br ->
            val intNumberOfRound = getNumberOfRound()
             println("Number of Rounds to play is $intNumberOfRound!")
+            println()
             for (round in 1..intNumberOfRound) {
+                println("We are playing Round:$round")
                 printItems()
                 val userChoice: GameItem = getUserChoice(br)
                 val computerChoice: GameItem = getComputerChoice()
-                println("")
+                println()
                 println("You picked:  $userChoice")
                 println("Computer picked: $computerChoice")
                 val roundResult:GameResult=evaluateResult(userChoice, computerChoice)
@@ -75,6 +77,7 @@ public class RockPaperScissors {
     }
 
     fun getComputerChoice(): GameItem {
+        return GameItem.ROCK
         return GameItem.values()[Random().nextInt(GameItem.values().size)]
     }
 
@@ -90,7 +93,7 @@ public class RockPaperScissors {
     }
 
     fun getNumberOfRound():Int{
-        return 2
+        return 100
         try {
             while(true) {
                 println("How much Rounds would you like to play?(Please input Number from 1 to 10)")
