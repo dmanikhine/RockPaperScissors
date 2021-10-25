@@ -1,7 +1,7 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+// I'm gonna go build my own theme park with blackjack and ...... in
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main(args: Array<String>) {
+    println("We are going to play: Rock, Paper, Scissors!")
+    println("Let's have a fun!!!")
+    println()
 }
