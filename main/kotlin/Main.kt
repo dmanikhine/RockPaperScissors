@@ -27,6 +27,7 @@ public class RockPaperScissors {
             println("")
             println("You picked:  $userChoice")
             println("Computer picked: $computerChoice")
+            evaluateResult(userChoice, computerChoice)
         }
     }
 
@@ -58,6 +59,18 @@ public class RockPaperScissors {
 
     fun getComputerChoice(): GameItem {
         return GameItem.values()[Random().nextInt(GameItem.values().size)]
+    }
+
+    fun evaluateResult(userChoice: GameItem, computerChoice: GameItem) {
+        if (userChoice === computerChoice) {
+            println("It's a DRAW.")
+            return
+        }
+        if (userChoice.isVictim(computerChoice)) {
+            println("It's a WIN!")
+        } else {
+            println("It's a LOSE. :(")
+        }
     }
 
 
