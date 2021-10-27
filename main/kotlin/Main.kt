@@ -16,7 +16,11 @@ public class RockPaperScissors {
         println("We are going to play: Rock, Paper, Scissors!")
         println("Let's have a fun!!!")
         println()
-        val resultList:MutableList<GameResult> = playGame(InputStreamReader(System.`in`))
+        val numberOfRound = getNumberOfRound()
+        println("Number of Rounds to play is $numberOfRound!")
+        println()
+
+        val resultList:MutableList<GameResult> = playGame(numberOfRound,InputStreamReader(System.`in`))
         println()
         println("This is the End of our Game my friend.")
         println()
@@ -27,27 +31,28 @@ public class RockPaperScissors {
 
     }
 
-    fun playGame(inputStreamReader: InputStreamReader): MutableList<GameResult> {
+    fun playGame(numberOfRound:Int, inputStreamReader: InputStreamReader): MutableList<GameResult> {
+
+     tailrec fun _playGame(numberOfRound:Int, resultList: MutableList<GameResult>, br: BufferedReader): MutableList<GameResult>{
+            if (numberOfRound<1) return resultList
+            println("We are playing Round:$numberOfRound")
+            printItems()
+            val userChoice: GameItem = getUserChoice(br)
+            val computerChoice: GameItem = getComputerChoice()
+            println()
+            println("You picked:  $userChoice")
+            println("Computer picked: $computerChoice")
+            val roundResult:GameResult=evaluateResult(userChoice, computerChoice)
+            resultList.add(roundResult)
+            println("It's a $roundResult.")
+            println()
+            return _playGame(numberOfRound-1,resultList,br)
+        }
+
         val resultList: MutableList<GameResult> = mutableListOf<GameResult>()
         BufferedReader(inputStreamReader).use { br ->
-           val intNumberOfRound = getNumberOfRound()
-            println("Number of Rounds to play is $intNumberOfRound!")
-            println()
-            for (round in 1..intNumberOfRound) {
-                println("We are playing Round:$round")
-                printItems()
-                val userChoice: GameItem = getUserChoice(br)
-                val computerChoice: GameItem = getComputerChoice()
-                println()
-                println("You picked:  $userChoice")
-                println("Computer picked: $computerChoice")
-                val roundResult:GameResult=evaluateResult(userChoice, computerChoice)
-                println("It's a $roundResult.")
-                println()
-                resultList.add(roundResult)
-            }
-        }
-        return resultList
+            return _playGame(numberOfRound, resultList,br)
+         }
     }
 
     fun printItems() {

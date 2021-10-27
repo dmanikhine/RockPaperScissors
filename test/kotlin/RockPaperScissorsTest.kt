@@ -58,7 +58,7 @@ internal class RockPaperScissorsTest {
     @Test
     fun test_playGame(){
         val path = System.getProperty("user.dir")+"/src/test/kotlin/"+"testListRockPaperScissors"
-        val resultList:MutableList<RockPaperScissors.GameResult> = rps.playGame(FileReader(path))
+        val resultList:MutableList<RockPaperScissors.GameResult> = rps.playGame(100,FileReader(path))
 
         val expectedWIN:Int=40
         val actualWIN=resultList.filter { i->i==win}.size
